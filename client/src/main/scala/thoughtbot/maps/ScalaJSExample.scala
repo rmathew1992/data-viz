@@ -12,29 +12,20 @@ import org.singlespaced.d3js.d3
 object ScalaJSExample extends js.JSApp {
 
   def main(): Unit = {
-    val graphHeight = 450
-    val barWidth = 80
-    val barSeparation = 10
-    val maxData = 50
-    val horizontalBarDistance = barWidth + barSeparation
-    val barHeightMultiplier = graphHeight / maxData;
-    dom.document.getElementById("scalajsShoutOut").textContent = SharedMessages.itWorks
-    //Color for start
-    val c = d3.rgb("DarkSlateBlue")
-
-    val rectXFun = (d: Int, i: Int) => i * horizontalBarDistance
-    val rectYFun = (d: Int) => graphHeight - d * barHeightMultiplier
-    val rectHeightFun = (d: Int) => d * barHeightMultiplier
-    val rectColorFun = (d: Int, i: Int) => c.brighter(i * 0.5).toString
-
-    val svg = d3.select("body").append("svg").attr("width", "100%").attr("height", "450px")
-    val sel = svg.selectAll("rect").data(js.Array(8, 22, 31, 36, 48, 17, 25))
-    sel.enter()
-      .append("rect")
-      .attr("x", rectXFun)
-      .attr("y", rectYFun)
-      .attr("width", barWidth)
-      .attr("height", rectHeightFun)
-      .style("fill", rectColorFun)
+    val data = js.Array(30,40, 90)
+    val scale = d3.scale.linear()
+      .domain(js.Array(0, 365))
+      .range(js.Array(0, 300))
+    val chart = dom.document.getElementById("chart")
+    d3.select(chart)
+      .selectAll("div")
+      .data(data)
+      .enter()
+      .append("div")
+      .style("float", "left")
+      .style("height", (d: Int) =>  scale(d) + "px")
+      .style("margin", "2px")
+      .style("background-color", "blue")
+      .text((d: Int) =>  d.toString)
   }
 }

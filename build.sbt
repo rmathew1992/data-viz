@@ -18,7 +18,8 @@ lazy val client = (project in file("client")).settings(commonSettings).settings(
   scalaJSUseMainModuleInitializer := true,
   libraryDependencies ++= Seq(
     "org.scala-js" %%% "scalajs-dom" % "0.9.3",
-    "org.singlespaced" %%% "scalajs-d3" % "0.3.4"
+    "org.singlespaced" %%% "scalajs-d3" % "0.3.4",
+    "com.lightbend.akka" %% "akka-stream-alpakka-csv" % "0.8"
   )
 ).enablePlugins(ScalaJSPlugin, ScalaJSWeb).
   dependsOn(sharedJs)
